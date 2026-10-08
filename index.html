@@ -483,7 +483,7 @@ const BOXES = [
   { k:'crisis',  name:'고비', q:'무엇이 어려웠나', hint:'어려움 → 해결 한 쌍 (기록에 없으면 내 경험에서)', c:'--s3', tags:'STAR A · OREO E' },
   { k:'result',  name:'결과', q:'무엇이 남았나',   hint:'결과 · 배움 · 진로 연결',                  c:'--s4', tags:'STAR R·+R · OREO O · CLEAR A·R' },
 ];
-const MAX_CHIPS = 3, MAX_LEN = 16, MAX_PAIR = 2, PAIR_LEN = 12;
+const MAX_CHIPS = 6, MAX_LEN = 16, MAX_PAIR = 3, PAIR_LEN = 12;
 const BOXC = Object.fromEntries(BOXES.map(b=>[b.k,b.c])); BOXC.concept='--ink';
 const ACT_LEN = 40, TERM_LEN = 20, DEF_LEN = 60;
 
@@ -1077,7 +1077,7 @@ function setItems(items,note){
   state.student=$('#student').value.trim();
   state.items=items.map(i=>({id:i.id,title:i.title,text:i.text,star:false}));
   state.notes={}; state.active=null; save();
-  $('#foundHint').textContent=note || `${items.length}개 항목을 찾았어요. 전부 준비하면 시간이 모자라요. 면접에서 물어볼 것 같은 5~6개만 골라 ★를 눌러 주세요. 제목·내용이 잘못 나뉜 곳은 여기서 고칠 수 있어요.`;
+  $('#foundHint').textContent=note || `${items.length}개 항목을 찾았어요. 면접에서 물어볼 것 같은 항목을 골라 ★를 눌러 주세요. 제목·내용이 잘못 나뉜 곳은 여기서 고칠 수 있어요.`;
   status(''); go(2);
 }
 const drop=$('#drop'), fileIn=$('#file');
@@ -1100,7 +1100,7 @@ $('#pasteBtn').addEventListener('click',()=>{
 /* ================= 2단계: 항목 고르기 ================= */
 function renderItems(){
   const n=starred().length;
-  $('#starCount').innerHTML=`★ <b>${n}</b>개 선택${n>7?' · 조금 많아요':''}`;
+  $('#starCount').innerHTML=`★ <b>${n}</b>개 선택`;
   $('#items').innerHTML=state.items.map((it,i)=>`
     <div class="item ${it.star?'starred':''}" data-i="${i}">
       <div class="item-head">
